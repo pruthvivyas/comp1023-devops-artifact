@@ -6,11 +6,13 @@ on:
 
 jobs:
   check-artifact:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Run artifact check
-        shell: cmd
-        run: scripts\check_artifact.cmd
+      - name: Build Docker image
+        run: docker build -t shipit .
+
+      - name: Run Docker container
+        run: docker run --rm shipit
